@@ -4,7 +4,12 @@ import { Montserrat } from "next/font/google";
 
 // Global CSS styles
 import "./globals.css";
+
+// Theme Provider
 import { ThemeProvider } from "next-themes";
+
+// Clerk Provider
+import { ClerkProvider } from "@clerk/nextjs";
 
 // Fonts
 const montserrat = Montserrat({
@@ -26,17 +31,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${montserrat.variable} antialiased`}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-        </ThemeProvider>
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en" suppressHydrationWarning>
+        <body className={`${montserrat.variable} antialiased`}>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
